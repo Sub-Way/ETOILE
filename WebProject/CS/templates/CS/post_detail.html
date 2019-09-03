@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+ {% load staticfiles %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'HOME/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'HOME/css/contact.css' %}">
+    <script src="https://use.fontawesome.com/1e290237b5.js"></script>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+
+    <title>에투왈 게시판</title>
+
+    <style type="text/css">
+   body tr > td {
+    overflow:hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width:100px;
+    height:20px;
+    }
+        .conA{
+            background-image:linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.1)), url("{% static 'HOME/assets/img/2.jpg' %}");
+        }
+        header{
+            background-color:rgb(34, 32, 32);
+        }
+        .headB a{
+            color:gray;
+        }
+
+        #container {
+      width: 70%;
+      margin: 0 auto;     /* 가로로 중앙에 배치 */
+      padding-top: 10%;   /* 테두리와 내용 사이의 패딩 여백 */
+    }
+
+    #list {
+      text-align: center;
+    }
+
+    #write {
+      text-align: right;
+    }
+
+    /* Bootstrap 수정 */
+    .table > thead {
+      background-color: #b3c6ff;
+    }
+    .table > thead > tr > th {
+      text-align: center;
+    }
+    .table-hover > tbody > tr:hover {
+      background-color: #e6ecff;
+    }
+    .table > tbody > tr > td {
+      text-align: center;
+    }
+    .table > tbody > tr > #title {
+      text-align: left;
+    }
+
+    div > #paging {
+      text-align: center;
+    }
+
+    .hit {
+      animation-name: blink;
+      animation-duration: 1.5s;
+      animation-timing-function: ease;
+      animation-iteration-count: infinite;
+      /* 위 속성들을 한 줄로 표기하기 */
+      /* -webkit-animation: blink 1.5s ease infinite; */
+    }
+
+    /* 애니메이션 지점 설정하기 */
+    /* 익스플로러 10 이상, 최신 모던 브라우저에서 지원 */
+    @keyframes blink {
+      from {color: white;}
+      30% {color: yellow;}
+      to {color: red; font-weight: bold;}
+      /* 0% {color:white;}
+      30% {color: yellow;}
+      100% {color:red; font-weight: bold;} */
+    }
+    </style>
+    <script>
+        $(function(){
+            $(".headD").click(function(){
+                $(".headB").slideToggle();
+                $(".headC").slideToggle();
+            });
+            $("#search").click(function(){
+                $(".searchForm").fadeToggle("slow");
+            });
+        });
+    </script>
+
+</head>
+
+<body >
+    <header class="head-fixed">
+        <div class="container">
+            <div class="container-small">
+            <a href="{% url 'HOME:index' %}" class="headA"><img id="logo1" src="{% static 'HOME/assets/index/logo1.png'%}"><img id="logo2" src="{% static 'HOME/assets/index/logo2.png'%}"></a>
+
+            <button type="button" class="headD">
+                <span class="fa fa-bars" title="MENU"></span>
+            </button>
+            </div>
+
+            <nav class="headC">
+                <ul>
+                    <li><a href="{% url 'photo:m_cloth' %}"> 의 류 </a></li>
+                    <li><a href="{% url 'photo:m_shoe' %}"> 슈 즈 </a></li>
+                    <li><a href="{% url 'photo:m_bag' %}"> 가 방 </a></li>
+                    <li><a href="{% url 'photo:m_wallet' %}"> 지 갑 </a></li>
+                    <li><a href="{% url 'photo:m_fashion' %}">패션소품</a></li>
+                </ul>
+            </nav>
+            <nav class="headB">
+                <ul>
+                    <li><a href="{% url 'HOME:woman' %}">여 성</a></li>
+                    <li><a href="{% url 'HOME:man' %}">남 성</a></li>
+					{% if user.is_active %}
+					<li><a href="{% url 'accounts:logout'%}">로그아웃</a></li>
+                    {% else %}
+                    <li><a href="{% url 'accounts:login' %}">로그인</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'HOME:mypage' %}">마이페이지</a></li>
+                    <li><a href="{% url 'photo:cartbag' %}">쇼핑백</a></li>
+                    <li><a href="#" id="search"><span class="fa fa-search" title="Search"></span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="conA">
+        <div class="container">
+            <h1>프리 보드</h1>
+
+        </div>
+    </section>
+
+    <form class="searchForm" align="center" method="post" action="{% url 'CS:search' %}">{% csrf_token %}
+        <fieldset>
+            <input id="input" type="text" name="search" placeholder="Type here to search"/>
+            <input type="submit" class="fa" value="&#xf002;" id="searchbtn"/>
+        </fieldset>
+    </form>
+    <article class="post">
+        <div class="container">
+
+
+            <div class="contact-wrap">
+            <div class="contact">
+
+<h2>{{ object.title }}</h2>
+                    <hr/>
+<p class="other_posts">
+    {% if object.get_previous_by_modify_date %}
+    <a href="{{ object.get_previous_post.get_absolute_url }}" title="View previous post"> &laquo;--{{ object.get_previous_post }}</a>
+    {% endif %}
+
+    {% if object.get_next_by_modify_date %}
+    | <a href="{{ object.get_next_post.get_absolute_url }}" title="View next post">
+{{ object.get_next_post }}--&raquo;</a>
+    {% endif %}
+</p>
+
+<p class="date">{{ object.modify_date|date:"o-m-d P" }}</p>
+<br/>
+
+<div class="body">
+    {{ object.content|linebreaks }}
+</div>
+                <hr>
+<table>
+    <tr>
+        <td>
+            <a href="{% url 'CS:update' object.id %}"> <input id="btn" type="button" value="수정"></a>
+        </td>
+               <td>
+                   <a href="{% url 'CS:delete' object.id %}"> <input id="btn" type="button" value="삭제"></a>
+               </td>
+    </tr>
+</table>
+
+           </tbody>
+       </table>
+
+            <br/>
+
+            </div>
+        </div>
+        </div>
+    </article>
+
+
+
+    <footer>
+        <div class="container">
+            <div class="footA">
+                <h2>ÉTOILE</h2>
+                <p>
+                에투왈 - 나에게 가장 가까운 별<br>
+                Reach out and touch the star.
+                </p>
+
+                <nav class="footD">
+                    <ul>
+                        <li><a href="https://twitter.com/Official_ETOIL" target="_blank">
+                            <span class="fa fa-twitter" title="Twitter"></span>
+                        </a></li>
+
+                        <li><a href="#">
+                            <span class="fa fa-facebook" title="Facebook"></span>
+                        </a></li>
+
+                        <li><a href="#">
+                            <span class="fa fa-instagram" title="Instagram"></span>
+                        </a></li>
+
+                        <li><a href="#">
+                            <span class="fa fa-youtube" title="YouTube"></span>
+                        </a></li>
+                    </ul>
+                </nav>
+            </div>
+
+          <nav class="footB">
+            <div>
+                <h3>ABOUT</h3>
+                <ul>
+                    <!--1.2 정보 링크연결-->
+                    <li><a href="{% url 'HOME:about' %}">ÉTOILE 정보</a></li>
+                    <!--1.2 정책,방침 삭제-->
+                    <li><a href="{% url 'HOME:legal' %}">이용약관</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>SUPPORT</h3>
+                <ul>
+                    <!--1.2 전화메일 링크삭제-->
+                    <li class="addr">전화: 0000-0000</li>
+                    <li class="addr">메일: eshop@etoir.com</li>
+                    <!--1.0 리뷰,질문게시판 변경-->
+                    <!--1.2 게시판 통합-->
+                    <li><a href="{% url 'CS:post_list' %}">프리보드</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>ADDRESS</h3>
+                <ul>
+                    <li class="addr">서울특별시 중구 장충동2가 필동로1길 30
+                        <br>(동국대학교, 신공학관) 에투왈코리아<br><br>대표자 양동현 /
+                        <br>CISO 이사 신해을 / CPO 이사 임진섭
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="footC">
+            ⓒ ÉTOILE All rights reserved.
+        </div>
+    </div>
+    </footer>
+<div style="position:fixed; bottom:5px; right:5px;">
+        <a href="#top"><img src="{% static 'HOME/assets/index/top.png' %}" title="TOP"></a>
+    </div>
+
+</body>
+</html>
+

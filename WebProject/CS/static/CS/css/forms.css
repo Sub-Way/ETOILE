@@ -1,0 +1,17 @@
+fieldset{
+border: 1px solid #ccc;
+}
+.form-row {
+padding: 10px;
+font-size: 11px;
+border-bottom: 1px solid #eee;
+}
+.submit-row{
+margin: 5px 0;
+border: 1px solid #ccc;
+text-align: right;
+}
+.submit-row input {
+margin: 10px;
+background: #ffc;
+}

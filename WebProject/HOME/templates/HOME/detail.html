@@ -1,0 +1,252 @@
+<!DOCTYPE html><!--1.0 추가 페이지(동적)-->
+{% load staticfiles %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'HOME/css/detail.css' %}">
+    <link rel="stylesheet" href="{% static 'HOME/css/contact.css' %}">
+    <link href="{% static 'HOME/css/cloud-zoom.css' %}" rel="stylesheet" type="text/css" />
+    <!-- You can load the jQuery library from the Google Content Network.
+   Probably better than from your own server. -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/JavaScript" src="js/cloud-zoom.1.0.2.js"></script>
+    <script src="https://use.fontawesome.com/1e290237b5.js"></script>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    
+    <title>에투왈 - 상품상세</title>
+
+    <style>
+    header .container{
+        align-items: center;
+    }
+    header{
+        background-color:rgb(34, 32, 32);    
+    }
+    .headB a{
+        color:gray;
+    }
+
+    @media (min-width: 768px){
+        header .container{
+            height:67px;
+        }
+    }
+    </style>
+    <script>
+        $(function(){
+            $(".headD").click(function(){
+                $(".headB").slideToggle();
+                $(".headC").slideToggle();
+            });
+            $("#search").click(function(){
+                $(".searchForm").fadeToggle("slow");
+            });
+        });
+    </script>
+    
+</head>
+
+<body class="nohero">
+    <header class="head-fixed">
+        <div class="container">
+            <div class="container-small">
+            <a href="{% url 'HOME:index' %}" class="headA"><img id="logo1" src="{% static 'HOME/assets/index/logo1.png'%}"><img id="logo2" src="{% static 'HOME/assets/index/logo2.png'%}"></a>
+
+            <button type="button" class="headD">
+                <span class="fa fa-bars" title="MENU"></span>
+            </button>
+            </div>
+            
+            <nav class="headC">
+                <ul>
+                    <li><a href="w_cloth.html"> 의 류 </a></li>
+                    <li><a href="w_shoe.html"> 슈 즈 </a></li>
+                    <li><a href="w_bag.html">핸드백</a></li>
+                    <li><a href="w_wallet.html"> 지 갑 </a></li>
+                    <li><a href="w_fashion.html">패션소품</a></li>
+                </ul>
+            </nav>
+            <nav class="headB">
+                <ul>
+                    <li><a href="{% url 'HOME:woman' %}">여 성</a></li>
+                    <li><a href="{% url 'HOME:man' %}">남 성</a></li>
+					{% if user.is_active %}
+					<li><a href="{% url 'accounts:logout'%}">로그아웃</a></li>
+                    {% else %}
+                    <li><a href="{% url 'accounts:login' %}">로그인</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'HOME:mypage' %}">마이페이지</a></li>
+                    <li><a href="{% url 'photo:cartbag' %}">쇼핑백</a></li>
+                    <li><a href="#" id="search"><span class="fa fa-search" title="Search"></span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    
+    <section class="conB">
+        <div class="container">
+            <div class="text1">
+                <div>
+                    <a href='assets/woman/cloth/c1_z1.jpg' class = 'cloud-zoom' id='zoom1'
+                        rel="adjustX: 10, adjustY:-4">
+                        <img src="assets/woman/cloth/c1_m1.jpg" alt='' title="이미지 확대" />
+                    </a>
+
+                    <br>
+    
+                    <a href='assets/woman/cloth/c1_z1.jpg' class='cloud-zoom-gallery' title='Thumbnail 1'
+                    rel="useZoom: 'zoom1', smallImage: 'assets/woman/cloth/c1_m1.jpg' ">
+                    <img src="assets/woman/cloth/c1_s1.jpg" alt = "Thumbnail 1"/></a>
+    
+                    <a href='assets/woman/cloth/c1_z2.jpg' class='cloud-zoom-gallery' title='Thumbnail 2'
+                    rel="useZoom: 'zoom1', smallImage: 'assets/woman/cloth/c1_m2.jpg' ">
+                    <img src="assets/woman/cloth/c1_s2.jpg" alt = "Thumbnail 2"/></a>
+    
+                    <a href='assets/woman/cloth/c1_z3.jpg' class='cloud-zoom-gallery' title='Thumbnail 3'
+                    rel="useZoom: 'zoom1', smallImage: 'assets/woman/cloth/c1_m3.jpg' ">
+                    <img src="assets/woman/cloth/c1_s3.jpg" alt = "Thumbnail 3"/></a>
+    
+                    <a href='assets/woman/cloth/c1_z4.jpg' class='cloud-zoom-gallery' title='Thumbnail 4'
+                    rel="useZoom: 'zoom1', smallImage: 'assets/woman/cloth/c1_m4.jpg' ">
+                    <img src="assets/woman/cloth/c1_s4.jpg" alt = "Thumbnail 4"/></a>
+    
+                    <a href='assets/woman/cloth/c1_z5.jpg' class='cloud-zoom-gallery' title='Thumbnail 5'
+                    rel="useZoom: 'zoom1', smallImage: 'assets/woman/cloth/c1_m5.jpg' ">
+                    <img src="assets/woman/cloth/c1_s5.jpg" alt = "Thumbnail 5"/></a>
+                </div>
+            </div>
+    
+            <div class="text2">
+                        <td><h1>플라워 레이스 자켓</h1></td>
+                        <td><h2>&#8361 3,200,000 <fmt:formatNumber value="${vo.productPrice}" pattern="###,###,###"/></h2></td>
+                       
+                            <table border="0">
+                                <tr align="left">
+                                    <td><p> <img src="assets/woman/cloth/p.jpg"> 위스테리아 퍼플 레이스</p></td>
+                                </tr>
+
+                                <tr align="left">
+                                    <td>
+                                        <select name='fruits'>
+                                                <option value='' selected>사이즈 선택</option>
+                                                <option value='1'>S</option>
+                                                <option value='2'>M</option>
+                                                <option value='3'>L</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                
+                                <tr align="left">
+                                    <td><br><h2>_설명</h2></td>
+                                </tr>
+                                <tr>
+                                    <td> 과거를 기념하는 모던한 실루엣의 꽃잎 자수 자켓. 이탈리아 플로렌스의 피티 궁전 팔라틴 갤러리의 7개 방에서 런웨이를 선보인 2018 크루즈 패션쇼. 플로렌스에 처음 설립된 에투왈 하우스와 플로렌스의 과거와 역사를 연결해주는 컬렉션. 정교한 장인정신으로 완성되어 르네상스 패션의 상징이 된 레이스.</td>
+                                </tr>
+                                <tr align="left">
+                                    <td colspan="2"><br>
+                                        <form name="form1" method="post" action="${path}/shop/cart/insert.do">
+                                            <input type="hidden" name="productId" value="${vo.productId}">
+                                            <select name="amount">
+                                                <c:forEach begin="1" end="10" var="i">
+                                                    <option value="${i}">${i}</option>
+                                                </c:forEach>
+                                            </select>&nbsp;개
+                                            <br>
+                                            <br>
+                                        <input type="submit" value="즉시구매" id="btn"
+                                        align="center"/>
+                                        <input type="submit" value="장바구니" id="btn" align="center"/>
+                                    </form>
+                                    </td>
+                                </tr>
+                            </table>
+            </div>
+            </div>
+    </section>
+    
+    
+
+    <form class="searchForm" align="center" method="post">
+        <fieldset>
+            <input id="input" type="text" placeholder="Type here to search"/>
+            <input type="submit" class="fa" value="&#xf002;" id="searchbtn"/>
+        </fieldset>
+    </form>
+
+    
+
+    <footer>
+        <div class="container">
+            <div class="footA">
+                <h2>ÉTOILE</h2>
+                <p>
+                에투왈 - 나에게 가장 가까운 별<br>
+                Reach out and touch the star.
+                </p>
+
+                <nav class="footD">
+                    <ul>
+                        <li><a href="https://twitter.com/Official_ETOIL" target="_blank">
+                            <span class="fa fa-twitter" title="Twitter"></span>
+                        </a></li>
+
+                        <li><a href="#">
+                            <span class="fa fa-facebook" title="Facebook"></span>
+                        </a></li>
+
+                        <li><a href="#">
+                            <span class="fa fa-instagram" title="Instagram"></span>
+                        </a></li>
+
+                        <li><a href="#">
+                            <span class="fa fa-youtube" title="YouTube"></span>
+                        </a></li>
+                    </ul>
+                </nav>
+            </div>
+
+        <nav class="footB">
+            <div>
+                <h3>ABOUT</h3>
+                <ul>
+                    <!--1.2 정보 링크연결-->
+                    <li><a href="{% url 'HOME:about' %}">ÉTOILE 정보</a></li>
+                    <!--1.2 정책,방침 삭제-->
+                    <li><a href="{% url 'HOME:legal' %}">이용약관</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>SUPPORT</h3>
+                <ul>
+                    <!--1.2 전화메일 링크삭제-->
+                    <li class="addr">전화: 0000-0000</li>
+                    <li class="addr">메일: eshop@etoir.com</li>
+                    <!--1.0 리뷰,질문게시판 변경-->
+                    <!--1.2 게시판 통합-->
+                    <li><a href="{% url 'CS:post_list' %}">프리보드</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>ADDRESS</h3>
+                <ul>
+                    <li class="addr">서울특별시 중구 장충동2가 필동로1길 30
+                        <br>(동국대학교, 신공학관) 에투왈코리아<br><br>대표자 양동현 /
+                        <br>CISO 이사 신해을 / CPO 이사 임진섭
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="footC">
+            ⓒ ÉTOILE All rights reserved.
+        </div>
+    </div>
+    </footer>
+</body>
+</html>

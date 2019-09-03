@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+ {% load staticfiles %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'HOME/css/style.css' %}">
+    <link  rel="stylesheet" href="{% static 'HOME/css/grid.css' %}">
+    <script src="https://use.fontawesome.com/1e290237b5.js"></script>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script src="{% static 'HOME/js/pinterest_grid.js' %}"></script>
+
+    <title>에투왈 여성 가방</title>
+
+    <style>
+        .conA{
+            background-image:linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.1)), url("{% static 'HOME/assets/img/wb.jpg' %}");
+        }
+        header{
+            background-color:rgb(34, 32, 32);
+        }
+        .headB a{
+            color:gray;
+        }
+    </style>
+    <script>
+        $(function(){
+            $(".headD").click(function(){
+                $(".headB").slideToggle();
+                $(".headC").slideToggle();
+            });
+            $("#search").click(function(){
+                $(".searchForm").fadeToggle("slow");
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+    <header class="head-fixed">
+        <div class="container">
+            <div class="container-small">
+            <a href="{% url 'HOME:index' %}" class="headA"><img id="logo1" src="{% static 'HOME/assets/index/logo1.png'%}"><img id="logo2" src="{% static 'HOME/assets/index/logo2.png'%}"></a>
+
+            <button type="button" class="headD">
+                <span class="fa fa-bars" title="MENU"></span>
+            </button>
+            </div>
+
+            <nav class="headC">
+                <ul>
+                    <li><a href="{% url 'photo:w_cloth' %}"> 의 류 </a></li>
+                    <li><a href="{% url 'photo:w_shoe' %}"> 슈 즈 </a></li>
+                    <li><a href="{% url 'photo:w_bag' %}"> 가 방 </a></li>
+                    <li><a href="{% url 'photo:w_wallet' %}"> 지 갑 </a></li>
+                    <li><a href="{% url 'photo:w_fashion' %}">패션소품</a></li>
+                </ul>
+            </nav>
+            <nav class="headB">
+                    <ul>
+                        <li><a href="{% url 'HOME:woman' %}">여 성</a></li>
+                    <li><a href="{% url 'HOME:man' %}">남 성</a></li>
+					{% if user.is_active %}
+					<li><a href="{% url 'accounts:logout'%}">로그아웃</a></li>
+                    {% else %}
+                    <li><a href="{% url 'accounts:login' %}">로그인</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'HOME:mypage' %}">마이페이지</a></li>
+                    <li><a href="{% url 'photo:cartbag' %}">쇼핑백</a></li>
+                    <li><a href="#" id="search"><span class="fa fa-search" title="Search"></span></a></li>
+                    </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="conA">
+        <div class="container">
+            <h1>WOMAN</h1>
+            <p>여성 가방</p>
+        </div>
+    </section>
+
+    <form class="searchForm" align="center" method="post" action="{% url 'CS:search' %}">{% csrf_token %}
+        <fieldset>
+            <input id="input" type="text" name="search" placeholder="Type here to search"/>
+            <input type="submit" class="fa" value="&#xf002;" id="searchbtn"/>
+        </fieldset>
+    </form>
+
+    <section id="container">
+        <!--1.0 모든 상품은 상품명 가격 db에서 받아오고 detail페이지로 연결
+    이미지 파일 이름 형식 지정 m1_cN -->
+    <!--1.1 파일 이름형식 바꿈 _기준 좌우변경 / c1기준 화면예시-->
+
+{% for item in object_list %}
+            <article class="white-panel">
+{% for photo in item.photo_set.all|slice:":1" %}
+
+				<a href="{% url 'photo:album_detail' item.id %}">
+					<img src='{{ photo.image.url }}'>
+                    <p>{{ item.name }}</p>
+                    <p>\{{ item.price }}</p>
+				</a>
+{% endfor %}
+			</article>
+{% endfor %}
+			<!--<article class="white-panel">
+				<a href="detail.html">
+					<img src='assets/woman/cloth/c1_m1.jpg'>
+					<p>상품명 가격</p>
+				</a>
+			</article>
+			<article class="white-panel">
+				<a href="detail.html">
+					<img src='assets/woman/cloth/c1_m1.jpg'>
+					<p>상품명 가격</p>
+				</a>
+			</article>
+			<article class="white-panel">
+				<a href="detail.html">
+					<img src='assets/woman/cloth/c1_m1.jpg'>
+					<p>상품명 가격</p>
+				</a>
+			</article>
+			<article class="white-panel">
+				<a href="detail.html">
+					<img src='assets/woman/cloth/c1_m1.jpg'>
+					<p>상품명 가격</p>
+				</a>
+			</article>
+			<article class="white-panel">
+				<a href="detail.html">
+					<img src='assets/woman/cloth/c1_m1.jpg'>
+					<p>상품명 가격</p>
+				</a>
+			</article>
+			<article class="white-panel">
+				<a href="detail.html">
+					<img src='assets/woman/cloth/c1_m1.jpg'>
+					<p>상품명 가격</p>
+				</a>
+			</article>
+			<article class="white-panel">
+				<a href="detail.html">
+					<img src='assets/woman/cloth/c1_m1.jpg'>
+					<p>상품명 가격</p>
+				</a>
+			</article>
+			<article class="white-panel">
+				<a href="detail.html">
+					<img src='assets/woman/cloth/c1_m1.jpg'>
+					<p>상품명 가격</p>
+				</a>
+			</article>
+			<article class="white-panel">
+				<a href="detail.html">
+					<img src='assets/woman/cloth/c1_m1.jpg'>
+					<p>상품명 가격</p>
+				</a>
+			</article>
+            <article class="white-panel">
+				<a href="detail.html">
+					<img src='assets/woman/cloth/c1_m1.jpg'>
+					<p>상품명 가격</p>
+				</a>
+			</article>
+            <article class="white-panel">
+				<a href="detail.html">
+					<img src='assets/woman/cloth/c1_m1.jpg'>
+					<p>상품명 가격</p>
+				</a>
+			</article> -->
+    </section>
+
+    <script>
+        $(document).ready(function() {
+            $('#container').pinterest_grid({
+                 no_columns: 4
+            });
+        });
+    </script>
+
+    <footer>
+        <div class="container">
+            <div class="footA">
+                <h2>ÉTOILE</h2>
+                <p>
+                에투왈 - 나에게 가장 가까운 별<br>
+                Reach out and touch the star.
+                </p>
+
+                <nav class="footD">
+                    <ul>
+                        <li><a href="https://twitter.com/Official_ETOIL" target="_blank">
+                            <span class="fa fa-twitter" title="Twitter"></span>
+                        </a></li>
+
+                        <li><a href="#">
+                            <span class="fa fa-facebook" title="Facebook"></span>
+                        </a></li>
+
+                        <li><a href="#">
+                            <span class="fa fa-instagram" title="Instagram"></span>
+                        </a></li>
+
+                        <li><a href="#">
+                            <span class="fa fa-youtube" title="YouTube"></span>
+                        </a></li>
+                    </ul>
+                </nav>
+            </div>
+
+        <nav class="footB">
+            <div>
+                <h3>ABOUT</h3>
+                <ul>
+                    <!--1.2 정보 링크연결-->
+                    <li><a href="{% url 'HOME:about' %}">ÉTOILE 정보</a></li>
+                    <!--1.2 정책,방침 삭제-->
+                    <li><a href="{% url 'HOME:legal' %}">이용약관</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>SUPPORT</h3>
+                <ul>
+                    <!--1.2 전화메일 링크삭제-->
+                    <li class="addr">전화: 0000-0000</li>
+                    <li class="addr">메일: eshop@etoir.com</li>
+                    <!--1.0 리뷰,질문게시판 변경-->
+                    <!--1.2 게시판 통합-->
+                    <li><a href="{% url 'CS:post_list' %}">프리보드</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>ADDRESS</h3>
+                <ul>
+                    <li class="addr">서울특별시 중구 장충동2가 필동로1길 30
+                        <br>(동국대학교, 신공학관) 에투왈코리아<br><br>대표자 양동현 /
+                        <br>CISO 이사 신해을 / CPO 이사 임진섭
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="footC">
+            ⓒ ÉTOILE All rights reserved.
+        </div>
+    </div>
+    </footer>
+
+    <!--1.0 위로 가기 버튼-->
+    <div style="position:fixed; bottom:5px; right:5px;">
+        <a href="#top"><img src="{% static 'HOME/assets/index/top.png' %}" title="TOP"></a>
+    </div>
+</body>
+</html>

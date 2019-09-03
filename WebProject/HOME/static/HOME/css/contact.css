@@ -1,0 +1,77 @@
+/* article */
+.post .container{
+    max-width:800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px 10px;
+}
+.post h1{
+    padding-left: 0.5rem;
+    border-left: solid 0.75rem goldenrod;
+    font-size: 2rem;
+}
+.post p{
+    font-size: 1rem;
+    line-height: 2;
+}
+
+.contact{
+    margin-top:20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: solid 1px #ddd;
+}
+.contact h2{
+    margin-top: 0;
+}
+
+#btn{
+    width:150px;
+    height:40px;
+    color: rgb(248, 237, 177);
+    background-color: rgb(122, 103, 58);
+}
+
+@media (min-width:768px){
+    .contact-wrap{
+        display: flex;
+    }
+    .contact{
+        flex: 1;
+    }
+    .contact:first-child{
+        margin-right: 20px;
+    }
+}
+
+.loginForm fieldset{
+    border: none;
+}
+.loginForm input{
+    font-size:13px;
+    padding:8px;
+    outline: none;
+}
+@media (min-width:768px){
+    .loginForm input{
+        width: 300px;
+    }
+}
+.registerForm fieldset{
+    border: none;
+}
+.registerForm input{
+    font-size:13px;
+    padding:8px;
+    outline: none;
+}
+@media (min-width:1000px){
+    .registerForm input{
+        width: 500px;
+    }
+}
+.text2 h1{
+    padding-left: 0.5rem;
+    border-left: solid 0.75rem goldenrod;
+}
+

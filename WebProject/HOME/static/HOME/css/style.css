@@ -1,0 +1,402 @@
+@charset "UTF-8";
+
+/* 기본 설정 : 페이지 전체 */
+body{
+    margin: 0;
+    font-family: '맑은 고딕',
+    'Apple SD Gothic Neo',
+    sans-serif;
+}
+
+/* 헤더 */
+header{
+    position: absolute;
+    top:0;
+    left:0;
+    z-index:100;
+    width:100%;
+    background-color:rgba(255, 0, 0, 0);
+}
+
+header img { 
+    max-width: 50%;    
+    height: auto; 
+}
+
+header:hover {
+    background-color:rgb(255, 255, 255);
+    transition: background-color 0.8s
+}
+
+header #logo2 {
+    display: none;
+}
+header:hover #logo1 {
+    display: none;
+}
+header:hover #logo2 {
+    display: inline;
+}
+
+/* 헤더B: 네비게이션 메뉴 */
+.headB ul{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+.headB a{
+    display: block;
+    padding: 15px;
+    color: rgba(0,0,0,0.3);
+    font-size: 12px;
+    text-decoration: none;
+}
+.headB a:hover{
+    color: #000;
+}
+
+/* 검색 */
+.searchForm{
+    height: 100%;
+    width: 100%;
+    display: none;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+.searchForm fieldset{
+    position: relative;
+    top: 45%;
+    width: 100%;
+    border: none;
+}
+.searchForm #input{
+    font-size:16px;
+    width:480px;
+    padding:10px;
+    border:0px;
+    outline:none;
+}
+.searchForm #searchbtn{
+    padding:10px;
+    width:80px;
+    background:none;
+}
+
+@media (max-width:767px){
+    /*작은화면 전용설정*/
+    .searchForm #searchbtn{
+        display: flex;
+        margin-left: 10%;
+    }
+}
+
+/* 헤더C: 네비게이션 상세메뉴 */
+.headC ul{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+.headC a{
+    display: block;
+    padding: 25px;
+    color: goldenrod;
+    font-size: 13px;
+    text-decoration: none;
+}
+.headC a:hover{
+    color: brown;
+}
+
+@media (max-width:767px){
+    .headB a{
+        padding: 7px;
+    }
+    .headC a{
+        padding: 10px;
+    }
+}
+
+@media (min-width: 768px){
+    header .container{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width:1460px;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    .headB ul{
+        display: flex;
+    }
+    .headC ul{
+        display: flex;
+    }
+}
+
+
+/* 헤더D: 토글 버튼 */
+@media (max-width:767px){
+    /*작은화면 전용설정*/
+    header .container-small{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .headD{
+        margin-right: 10px;
+        padding:0;
+        border: none;
+        outline: none;
+        background: none;
+        font-size: 28px;
+        opacity: 0.5;
+        cursor: pointer;
+    }
+    .headD:hover{
+        opacity: 0.3;
+    }
+
+    .headB{
+        display: none;
+    }
+    .headC{
+        display: none;
+    }
+}
+@media (min-width:768px){
+    /*큰화면 전용설정*/
+    .headD {
+        display: none;
+    }
+    .headB{
+        display: block !important;
+    }
+    .headC{
+        display: block !important;
+    }
+}
+
+.nohero header{
+    position: static;
+}
+
+/* 헤더 화면 위에 고정 */
+.head-fixed,
+.nohero .head-fixed {
+    position: fixed;
+}
+
+.nohero .head-fixed + * {
+    margin-top:70px;
+}
+
+/* 콘텐츠A: 히어로 이미지 */
+.conA{
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+
+    height: 450px;
+    background-position: center;
+    background-size: cover;
+    color: #fff;
+    text-align: center;
+}
+.conA h1{
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15vw;
+    letter-spacing: 0.2em;
+    margin-left: 0.2em;
+}
+.conA p{
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 18px;
+}
+
+@media (min-width:768px){
+    .conA h1{
+        font-size: 115px;
+    }
+    .conA p{
+        font-size:24px;
+    }
+}
+
+/* 콘텐츠B: 카테고리 박스 */
+.conB{
+    display: flex;
+    background-size: cover;
+}
+.conB .container {
+    width:100%;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+
+    align-items: center;
+    justify-content: center;
+}
+.conB img
+{
+    max-width: 99%;
+    height: auto;
+}
+
+@media (max-width:767px){
+    .conB .container{
+        margin:10px;
+    }
+}
+
+@media (min-width:768px){
+    .conB .container{
+        flex-wrap: wrap;
+        margin: 20px;
+    }
+    
+    .box0 {
+        width: 50%;
+    }
+    .box1 {
+        width: 50%;
+    }
+    .box2{
+        width: 50%;
+    }
+    .box3{
+        width: 50%;
+    }
+}
+
+/* 푸터 */
+footer{
+    color:#fff;
+    background-color: rgb(34, 32, 32);
+}
+footer .container{
+    padding:40px 20px;
+}
+
+@media (min-width:768px){
+    footer .container{
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 1460px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .footA{
+        flex: 0 0 40%;
+    }
+    .footB{
+        flex: 0 0 60%;
+    }
+    .footC{
+        flex: 0 0 100%;
+    }
+}
+
+/* 푸터A: 사이트 정보 */
+.footA{
+    margin-bottom: 30px;
+}
+.footA h2{
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 30px;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.2em;
+}
+.footA p{
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size:14px;
+}
+
+/* 푸터B: 푸터 메뉴 */
+.footB div{
+    margin-bottom: 20px;
+}
+.footB h3{
+    margin-top: 0;
+    margin-bottom: 10px;
+    border-bottom: solid 1px currentColor;
+    font-size: 14px;
+}
+.footB ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.footB a{
+    color: gray;
+    font-size: 12px;
+    text-decoration: none;
+}
+.footB a:hover{
+    color:whitesmoke;
+}
+.footB .addr{
+    color: gray;
+    font-size: 12px;
+}
+
+@media (min-width:768px){
+    .footB{
+        display: flex;
+    }
+    .footB div{
+        flex: 1;
+    }
+    .footB div:not(:first-child){
+        margin-left: 40px;
+    }
+}
+
+/* 푸터C: 저작권 */
+.footC{
+    font-size: 12px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+/* 푸터D: SNS메뉴 */
+.footD{
+    margin-top: 20px;
+}
+.footD ul{
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.footD a{
+    display: block;
+    margin-right: 10px;
+    padding: 0;
+    color: gray;
+    font-size: 18px;
+    text-decoration: none;
+    border:solid 1px currentColor;
+    width:2em;
+    line-height: 2em;
+    border-radius: 50%;
+    text-align: center;
+}
+.footD a:hover{
+    color:whitesmoke;
+}

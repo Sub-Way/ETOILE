@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+ {% load staticfiles %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'HOME/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'HOME/css/contact.css' %}">
+    <link rel="stylesheet" href="{% static 'photo/photo.css' %}">
+    <script src="https://use.fontawesome.com/1e290237b5.js"></script>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+
+    <title>ÉTOILE - 공식 온라인 스토어</title>
+
+    <style>
+    header .container{
+        align-items: center;
+    }
+    header{
+        background-color:rgb(34, 32, 32);
+    }
+    .headB a{
+        color:gray;
+    }
+
+    @media (min-width: 768px){
+        header .container{
+            height:67px;
+        }
+    }
+    </style>
+    <script>
+        $(function(){
+            $(".headD").click(function(){
+                $(".headB").slideToggle();
+                $(".headC").slideToggle();
+            });
+            $("#search").click(function(){
+                $(".searchForm").fadeToggle("slow");
+            });
+        });
+    </script>
+
+</head>
+
+<body class="nohero">
+    <header class="head-fixed">
+        <div class="container">
+            <div class="container-small">
+             <a href="{% url 'HOME:index' %}" class="headA"><img id="logo1" src="{% static 'HOME/assets/index/logo1.png'%}"><img id="logo2" src="{% static 'HOME/assets/index/logo2.png'%}"></a>
+
+            <button type="button" class="headD">
+                <span class="fa fa-bars" title="MENU"></span>
+            </button>
+            </div>
+
+            <nav class="headB">
+                <ul>
+                    <li><a href="{% url 'HOME:woman' %}">여 성</a></li>
+                    <li><a href="{% url 'HOME:man' %}">남 성</a></li>
+					{% if user.is_active %}
+					<li><a href="{% url 'accounts:logout'%}">로그아웃</a></li>
+                    {% else %}
+                    <li><a href="{% url 'accounts:login' %}">로그인</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'HOME:mypage' %}">마이페이지</a></li>
+                    <li><a href="{% url 'photo:cartbag' %}">쇼핑백</a></li>
+                    <li><a href="#" id="search"><span class="fa fa-search" title="Search"></span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div id="content">
+
+    {% for item in object_list %}
+
+    <div class="clear_float">
+        <h2 style=display:inline"><a href="{% url 'photo:album_detail' item.id %}">{{ item.name }}</a></h2>
+        &emsp;<b><i>{{ item.description }}</i></b>
+    </div>
+
+    <hr/>
+
+    <div class="album-list">
+        {% for photo in item.photo_set.all|slice:":5" %}
+        <div class="album-list-photo">
+            <a href="{{ photo.get_absolute_url }}">
+            <img class="thumbnail" src="{{ photo.image.thumb_url }}" />
+            </a>
+
+        </div>
+
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+</div>
+
+
+
+    <form class="searchForm" align="center" method="post">
+        <fieldset>
+            <input id="input" type="text" placeholder="Type here to search"/>
+            <input type="submit" class="fa" value="&#xf002;" id="searchbtn"/>
+        </fieldset>
+    </form>
+
+
+
+    <footer>
+        <div class="container">
+            <div class="footA">
+                <h2>ÉTOILE</h2>
+                <p>
+                에투왈 - 나에게 가장 가까운 별<br>
+                Reach out and touch the star.
+                </p>
+
+                <nav class="footD">
+                    <ul>
+                        <li><a href="https://twitter.com/Official_ETOIL" target="_blank">
+                            <span class="fa fa-twitter" title="Twitter"></span>
+                        </a></li>
+
+                        <li><a href="#">
+                            <span class="fa fa-facebook" title="Facebook"></span>
+                        </a></li>
+
+                        <li><a href="#">
+                            <span class="fa fa-instagram" title="Instagram"></span>
+                        </a></li>
+
+                        <li><a href="#">
+                            <span class="fa fa-youtube" title="YouTube"></span>
+                        </a></li>
+                    </ul>
+                </nav>
+            </div>
+
+        <nav class="footB">
+            <div>
+                <h3>ABOUT</h3>
+                <ul>
+                    <li><a href="#">ÉTOILE 정보</a></li>
+                    <li><a href="#">운영정책</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                    <li><a href="legal.html">이용약관</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>SUPPORT</h3>
+                <ul>
+                    <li><a href="#">전화: 0000-0000</a></li>
+                    <li><a href="#">메일: eshop@etoir.com</a></li>
+                    <li><a href="#">자주 묻는 질문(FAQ)</a></li>
+                    <li><a href="#">교환/환불 정책</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>ADDRESS</h3>
+                <ul>
+                    <li class="addr">서울특별시 중구 장충동2가 필동로1길 30
+                        <br>(동국대학교, 신공학관) 에투왈코리아<br><br>대표자 양동현 /
+                        <br>CISO 이사 신해을 / CPO 이사 임진섭
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="footC">
+            ⓒ ÉTOILE All rights reserved.
+        </div>
+    </div>
+    </footer>
+</body>
+</html>
